@@ -1,4 +1,3 @@
-local Bumerhub = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local TextLabel = Instance.new("TextLabel")
 local fly = Instance.new("TextButton")
