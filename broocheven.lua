@@ -102,7 +102,7 @@ UICorner_2.Parent = speed
 
 -- Scripts:
 
-local function YOMLS_fake_script() -- Fly.LocalScript 
+local function BIJQ_fake_script() -- Fly.LocalScript 
 	local script = Instance.new('LocalScript', Fly)
 
 	local button = script.Parent
@@ -142,8 +142,8 @@ local function YOMLS_fake_script() -- Fly.LocalScript
 		toggleFlight(flying)
 	end)
 end
-coroutine.wrap(YOMLS_fake_script)()
-local function GKWYHU_fake_script() -- noclip.LocalScript 
+coroutine.wrap(BIJQ_fake_script)()
+local function GTMGVJ_fake_script() -- noclip.LocalScript 
 	local script = Instance.new('LocalScript', noclip)
 
 	local button = script.Parent
@@ -194,8 +194,8 @@ local function GKWYHU_fake_script() -- noclip.LocalScript
 		end
 	end)
 end
-coroutine.wrap(GKWYHU_fake_script)()
-local function CLIJRO_fake_script() -- speed.LocalScript 
+coroutine.wrap(GTMGVJ_fake_script)()
+local function YZLMUO_fake_script() -- speed.LocalScript 
 	local script = Instance.new('LocalScript', speed)
 
 	-- Вставьте этот LocalScript в существующую кнопку GUI
@@ -239,4 +239,49 @@ local function CLIJRO_fake_script() -- speed.LocalScript
 	-- Применяем начальную скорость
 	applySpeed()
 end
-coroutine.wrap(CLIJRO_fake_script)()
+coroutine.wrap(YZLMUO_fake_script)()
+local function SYTXVQ_fake_script() -- Frame.LocalScript 
+	local script = Instance.new('LocalScript', Frame)
+
+	local guiElement = script.Parent -- Элемент GUI, который будем двигать
+	local player = game.Players.LocalPlayer
+	local userInput = game:GetService("UserInputService")
+	
+	local dragging = false
+	local dragStartPos
+	local guiStartPos
+	
+	-- Функция для перемещения
+	local function updatePosition(input)
+		if dragging then
+			local delta = input.Position - dragStartPos
+			guiElement.Position = UDim2.new(
+				guiStartPos.X.Scale, 
+				guiStartPos.X.Offset + delta.X,
+				guiStartPos.Y.Scale, 
+				guiStartPos.Y.Offset + delta.Y
+			)
+		end
+	end
+	
+	-- Обработчики ввода
+	guiElement.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = true
+			dragStartPos = input.Position
+			guiStartPos = guiElement.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	userInput.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			updatePosition(input)
+		end
+	end)
+end
+coroutine.wrap(SYTXVQ_fake_script)()
